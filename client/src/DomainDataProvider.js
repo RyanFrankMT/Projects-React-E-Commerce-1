@@ -16,7 +16,7 @@ class DomainDataProvider extends Component {
     ServerApi.getAllProducts(products =>
       this.setState({
         isLoaded: true,
-        products
+        products: products
       }))
 
   render () {
