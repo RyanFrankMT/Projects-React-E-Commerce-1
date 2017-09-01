@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as AppPropTypes from '../../lib/propTypes'
-import {domainData} from '../../lib/propTypes'
 import Header from './header/Header'
 import Footer from './Footer'
 import Main from './Main'
