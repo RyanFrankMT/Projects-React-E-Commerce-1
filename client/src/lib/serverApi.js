@@ -20,7 +20,21 @@ const addProduct = (newProduct, callback) => {
 
   fetch('/api/products', options)
     .then(response => response.json())
+    .then(response => {
+      console.log('Response', response)
+      return response
+    })
     .then(json => callback(json.data))
 }
 
-export {getAllProducts, addProduct}
+const deleteProduct = (productId, callback) => {
+  const options = {
+    method: 'DELETE'
+  }
+
+  fetch(`/api/products/${productId}`, options)
+    .then(response => response.json())
+    .then(json => callback(json.data))
+}
+
+export {getAllProducts, addProduct, deleteProduct}

@@ -12,7 +12,11 @@ const ProductsList = (props) =>
     <ButtonLink to='/products/add' primary>Add Product</ButtonLink>
     {
       props.domainData.products.map((product) =>
-        <ProductsCard product={product} />
+        <ProductsCard
+          product={product}
+          key={product._id}
+          onDelete={() => props.domainData.deleteProduct(product)}
+        />
       )
     }
   </div>

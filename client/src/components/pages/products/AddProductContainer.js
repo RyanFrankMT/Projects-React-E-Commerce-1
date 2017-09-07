@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import * as AppPropTypes from '../../../lib/propTypes'
+import {withRouter} from 'react-router-dom'
 import AddProductForm from './AddProductForm'
+import PropTypes from 'prop-types'
 
 class AddProductContainer extends Component {
   static propTypes = {
-    domainData: AppPropTypes.domainData
+    domainData: AppPropTypes.domainData,
+    history: PropTypes.object.isRequited
   }
 
   state = {
@@ -29,8 +32,10 @@ class AddProductContainer extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.domainData.addProduct(this.state)
-    //change the url back to the products list
+    this.props.history.push('/products')
   }
+
+  onCancel = () => this.props.history.push('/products')
 
   render () {
     return <AddProductForm
@@ -42,9 +47,10 @@ class AddProductContainer extends Component {
       onPriceChanged={this.onPriceChanged}
       image={this.state.image}
       onImageChanged={this.onImageChanged}
-      onSubmit=(this.onSubmit)
+      onSubmit={this.onSubmit}
+      onCancel={this.onCancel}
     />
   }
 }
 
-export default AddProductContainer
+export default withRouter(AddProductContainer)
