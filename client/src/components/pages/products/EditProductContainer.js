@@ -1,20 +1,22 @@
 import React, {Component} from 'react'
-import * as AppPropTypes from '../../../lib/propTypes'
-import {withRouter} from 'react-router-dom'
-import AddProductForm from './AddProductForm'
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router-dom'
+import * as AppPropTypes from '../../../lib/propTypes'
+import EditProductForm from './EditProductForm'
 
-class AddProductContainer extends Component {
+class EditProductContainer extends Component {
   static propTypes = {
     domainData: AppPropTypes.domainData,
-    history: PropTypes.object.isRequited
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
   }
 
-  state = {
-    name: '',
-    category: '',
-    price: '0',
-    image: ''
+  constructor (props) {
+    super()
+    const productId = props.match.params.productId
+    const product = props.domainData.products.find(p => p._id === productId)
+
+    this.state = product
   }
 
   onNameChanged = (event) => this.setState({name: event.target.value})
@@ -31,28 +33,25 @@ class AddProductContainer extends Component {
 
   onImageChanged = (event) => this.setState({image: event.target.value})
 
-  onSubmit = (event) => {
-    event.preventDefault()
-    this.props.domainData.addProduct(this.state) // save to the db
-    this.props.history.push('/products') // change URL back to the products page
-  }
-
   onCancel = () => this.props.history.push('/products')
 
+  onSubmit = (event) => {
+    event.preventDefault()
+    this.props.domainData.updateProduct(this.state)
+    this.props.history.push('/products')
+  }
+
   render () {
-    return <AddProductForm
-      name={this.state.name}
+    return <EditProductForm
+      product={this.state}
       onNameChanged={this.onNameChanged}
-      category={this.state.category}
       onCategoryChanged={this.onCategoryChanged}
-      price={this.state.price}
       onPriceChanged={this.onPriceChanged}
-      image={this.state.image}
       onImageChanged={this.onImageChanged}
-      onSubmit={this.onSubmit}
       onCancel={this.onCancel}
+      onSubmit={this.onSubmit}
     />
   }
 }
 
-export default withRouter(AddProductContainer)
+export default withRouter(EditProductContainer)

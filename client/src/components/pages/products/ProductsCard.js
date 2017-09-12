@@ -4,15 +4,17 @@ import * as AppPropTypes from '../../../lib/propTypes'
 
 const propTypes = {
   product: AppPropTypes.product,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired
 }
 
-const ProductsCard = (props) =>
+const ProductsCard = ({product, onDelete, onEdit}) =>
   <div>
-    <h3>{props.product.name}</h3>
-    <img src={props.product.image} />
-    <p>{props.product.price}</p>
-    <button onClick={props.onDelete}>Delete Product</button>
+    <h3>{product.name}</h3>
+    <img src={product.image} />
+    <p>{product.price}</p>
+    <button onClick={onDelete}>Delete Product</button>
+    <p><button onClick={onEdit}>Edit</button></p>
   </div>
 
 ProductsCard.propTypes = propTypes

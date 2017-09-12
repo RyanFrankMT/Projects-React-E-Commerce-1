@@ -1,26 +1,32 @@
 import React from 'react'
+import {Link, withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import * as AppPropTypes from '../../../lib/propTypes'
 import ButtonLink from '../../presentation/ButtonLink'
 import ProductsCard from './ProductsCard'
 
 const propTypes = {
-  domainData: PropTypes.object.isRequired
+  domainData: AppPropTypes.domainData,
+  history: PropTypes.object.isRequired
 }
 
-const ProductsList = (props) =>
+const ProductsList = ({domainData, history}) =>
   <div>
-    <ButtonLink to='/products/add' primary>Add Product</ButtonLink>
+    <Link to='/products/add' primary>Add Product</Link>
     {
-      props.domainData.products.map((product) =>
-        <ProductsCard
-          product={product}
-          key={product._id}
-          onDelete={() => props.domainData.deleteProduct(product)}
-        />
-      )
+      domainData.products.length === 0
+        ? <h2>No Products Found</h2>
+        : domainData.products.map(p =>
+          <ProductsCard
+            product={p}
+            key={p._id}
+            onDelete={() => domainData.deleteProduct(p._id)}
+            onEdit={() => history.push(`/products/edit/${p._id}`)}
+          />
+        )
     }
   </div>
 
 ProductsList.propTypes = propTypes
 
-export default ProductsList
+export default withRouter(ProductsList)

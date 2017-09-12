@@ -25,17 +25,19 @@ class DomainDataProvider extends Component {
     deleteProduct = (product) =>
       ServerApi.deleteProduct(product._id, this.getAllProducts)
 
+    updateProduct = (product) =>
+      ServerApi.updateProduct(product, this.getAllProducts)
+
     render () {
       const domainData = {
         isLoaded: this.state.isLoaded,
         products: this.state.products,
         addProduct: this.addProduct,
-        deleteProduct: this.deleteProduct
+        deleteProduct: this.deleteProduct,
+        updateProduct: this.updateProduct
       }
 
-      return (
-        <Layout domainData={domainData} />
-      )
+      return this.state.isLoaded ? <Layout domainData={domainData} /> : null
     }
 }
 
