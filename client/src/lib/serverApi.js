@@ -32,6 +32,7 @@ const updateProduct = (product, callback) => {
     'Content-Type': 'application/json'
   })
   const options = {
+    body: JSON.stringify(product),
     headers: headers,
     method: 'PUT'
   }
