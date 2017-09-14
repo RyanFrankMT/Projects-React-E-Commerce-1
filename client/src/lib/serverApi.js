@@ -1,59 +1,25 @@
-const getAllProducts = (callback) => {
-  const options = {
-    method: 'GET'
-  }
-
-  fetch('/api/products', options)
-    .then(response => response.json())
-    .then(json => callback(json.data))
-}
-
-const addProduct = (newProduct, callback) => {
+const ajaxRequest = (url, method, body) => {
+  console.log(url, method, body)
   const headers = new Headers({
     'Content-Type': 'application/json'
   })
+
   const options = {
-    body: JSON.stringify(newProduct),
+    body: JSON.stringify(body),
     headers: headers,
-    method: 'POST'
+    method: method
   }
-
-  fetch('/api/products', options)
+  return fetch(url, options)
     .then(response => response.json())
-    .then(response => {
-      console.log('Response', response)
-      return response
-    })
-    .then(json => callback(json.data))
+    .then(json => json.data)
 }
 
-const updateProduct = (product, callback) => {
-  const headers = new Headers({
-    'Content-Type': 'application/json'
-  })
-  const options = {
-    body: JSON.stringify(product),
-    headers: headers,
-    method: 'PUT'
-  }
+const getAllProducts = () => ajaxRequest('/api/products', 'GET')
 
-  fetch(`/api/products/${product._id}`, options)
-    .then(response => response.json())
-    .then(response => {
-      console.log('Response', response)
-      return response
-    })
-    .then(json => callback(json.data))
-}
+const addProduct = (newProduct) => ajaxRequest('/api/products', 'POST', newProduct)
 
-const deleteProduct = (productId, callback) => {
-  const options = {
-    method: 'DELETE'
-  }
+const updateProduct = (product) => ajaxRequest(`/api/products/${product._id}`, 'PUT', product)
 
-  fetch(`/api/products/${productId}`, options)
-    .then(response => response.json())
-    .then(json => callback(json.data))
-}
+const deleteProduct = (productId) => ajaxRequest(`/api/products/${productId}`, 'DELETE')
 
 export {getAllProducts, addProduct, updateProduct, deleteProduct}

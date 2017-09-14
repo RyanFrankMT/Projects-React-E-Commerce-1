@@ -34,7 +34,7 @@ class AddProductContainer extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.domainData.addProduct(this.state) // save to the db
-    this.props.history.push('/products') // change URL back to the products page
+      .then(() => this.props.history.push('/products')) // change URL back to the products list
   }
 
   onCancel = () => this.props.history.push('/products')

@@ -1,5 +1,4 @@
 import React from 'react'
-import * as AppPropTypes from '../../../lib/propTypes'
 import PropTypes from 'prop-types'
 
 const propTypes = {
