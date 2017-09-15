@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 class AddProductContainer extends Component {
   static propTypes = {
     domainData: AppPropTypes.domainData,
-    history: PropTypes.object.isRequited
+    history: PropTypes.object.isRequired
   }
 
   state = {

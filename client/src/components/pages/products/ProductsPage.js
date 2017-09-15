@@ -1,12 +1,12 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
-import {domainData} from '../../../lib/propTypes'
+import * as AppPropTypes from '../../../lib/propTypes'
 import ProductsList from './ProductsList'
 import AddProductContainer from './AddProductContainer'
 import EditProductContainer from './EditProductContainer'
 
 const propTypes = {
-  domainData
+  domainData: AppPropTypes.domainData
 }
 
 const ProductsPage = (props) =>
