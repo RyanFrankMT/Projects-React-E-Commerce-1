@@ -11,8 +11,8 @@ const propTypes = {
 
 const LogInForm = (props) =>
   <form onSubmit={props.onSubmit}>
-    Username: <input type='text' value={props.username} onChange={props.onUsernameChanged} />
-    Password: <input type='text' value={props.password} onChange={props.onPasswordChanged} />
+    <p> Username: <input type='text' value={props.username} onChange={props.onUsernameChanged} /></p>
+    <p> Password: <input type='text' value={props.password} onChange={props.onPasswordChanged} /></p>
     <input
       type='submit'
       value='Submit'

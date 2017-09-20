@@ -10,16 +10,36 @@ const ajaxRequest = (url, method, body) => {
     method: method
   }
   return fetch(url, options)
+    .then(handleErrors)
     .then(response => response.json())
     .then(json => json.data)
 }
 
-const getAllProducts = () => ajaxRequest('/api/products', 'GET')
+const handleErrors = response => {
+  if (!response.ok) {
+    return response.json()
+      .then(({message, data}) => {
+        const err = Error(message)
+        Object.assign(err, data)
+        err.status = response.status
+        throw err
+      })
+  }
+  return response
+}
 
-const addProduct = (newProduct) => ajaxRequest('/api/products', 'POST', newProduct)
+export const getAllProducts = () => ajaxRequest('/api/products', 'GET')
 
-const updateProduct = (product) => ajaxRequest(`/api/products/${product._id}`, 'PUT', product)
+export const addProduct = (newProduct) => ajaxRequest('/api/products', 'POST', newProduct)
 
-const deleteProduct = (productId) => ajaxRequest(`/api/products/${productId}`, 'DELETE')
+export const updateProduct = (product) => ajaxRequest(`/api/products/${product._id}`, 'PUT', product)
 
-export {getAllProducts, addProduct, updateProduct, deleteProduct}
+export const deleteProduct = (productId) => ajaxRequest(`/api/products/${productId}`, 'DELETE')
+
+export const signupUser = (user) => ajaxRequest('signup', 'POST', user)
+
+export const loginUser = (email, password) => ajaxRequest('login', 'POST', {email, password})
+
+export const getUser = () => ajaxRequest('get_user', 'GET')
+
+export const logoutUser = () => ajaxRequest('logout', 'GET')

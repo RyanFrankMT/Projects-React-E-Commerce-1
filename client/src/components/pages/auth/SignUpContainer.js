@@ -27,7 +27,6 @@ class SignUpContainer extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.
   }
 
   render () {

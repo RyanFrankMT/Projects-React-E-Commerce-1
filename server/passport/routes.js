@@ -1,4 +1,4 @@
-require('../../models/User')
+const Errors = require('./errors')
 
 module.exports = (app, passport) => {
   app.post('/api/signup', (req, res, next) => {
@@ -8,9 +8,15 @@ module.exports = (app, passport) => {
       }
 
       if (!user) {
-        return res.status(422).json({
-          message: info.message
-        })
+        if (!req.body.email) {
+          return next(Errors.missingEmail(info))
+        }
+
+        if (!req.body.password) {
+          return next(Errors.missingPassword(info))
+        }
+
+        return next(Errors.missingCredentials(info))
       }
 
       req.logIn(user, (err) => {
@@ -33,9 +39,15 @@ module.exports = (app, passport) => {
       }
 
       if (!user) {
-        return res.status(401).json({
-          message: info.message
-        })
+        if (!req.body.email) {
+          return next(Errors.unknownEmail({email: '', ...info}))
+        }
+
+        if (!req.body.password) {
+          return next(Errors.incorrectPassword(info))
+        }
+
+        return next(Errors.missingCredentials(info))
       }
 
       req.logIn(user, (err) => {
@@ -51,12 +63,12 @@ module.exports = (app, passport) => {
     })(req, res, next)
   })
 
-  app.get('/api/get_user', (req, res) =>
+  app.get('/api/get_user', (req, res) => {
     res.status(200).json({
       message: req.user ? 'User session exists' : 'User session does not exist',
       data: req.user
     })
-  )
+  })
 
   app.get('/api/logout', (req, res) => {
     req.logout()

@@ -10,15 +10,15 @@ const propTypes = {
   onUsernameChanged: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   onPasswordChanged: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 }
 
 const SignUpForm = (props) =>
   <form onSubmit={props.onSubmit}>
-    Customer Name: <input type='text' value={props.customerName} onChange={props.onCustomerNameChanged} />
-    Email: <input type='text' value={props.email} onChange={props.onEmailChanged} />
-    Username: <input type='text' value={props.username} onChange={props.onUsernameChanged} />
-    Password: <input type='text' value={props.password} onChange={props.onPasswordChanged} />
+    <p> Customer Name: <input type='text' value={props.customerName} onChange={props.onCustomerNameChanged} /></p>
+    <p> Email: <input type='text' value={props.email} onChange={props.onEmailChanged} /></p>
+    <p> Username: <input type='text' value={props.username} onChange={props.onUsernameChanged} /></p>
+    <p> Password: <input type='text' value={props.password} onChange={props.onPasswordChanged} /></p>
     <input
       type='submit'
       value='Submit'

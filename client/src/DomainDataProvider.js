@@ -5,44 +5,78 @@ import * as ServerApi from './lib/serverApi'
 class DomainDataProvider extends Component {
   state = {
     isLoaded: false,
-    products: []
+    products: [],
+    user: null
+  }
+
+  methods = {
+    getAllProducts: () =>
+      ServerApi.getAllProducts()
+        .then(products => products.map(p => ({
+          ...p,
+          price: (p.price / 100).toFixed(2)
+        })))
+        .then(products =>
+          this.setState({
+            isLoaded: true,
+            products: products
+          })),
+
+    addProduct: (newProduct) =>
+      ServerApi.addProduct(newProduct)
+        .then(this.methods.getAllProducts),
+
+    deleteProduct: (productId) =>
+      ServerApi.deleteProduct(productId)
+        .then(this.methods.getAllProducts),
+
+    updateProduct: (product) =>
+      ServerApi.updateProduct(product)
+        .then(this.methods.getAllProducts),
+
+    findProductById: (productId) => this.state.products.find(p => p._id === productId),
+
+    signupUser: (user) =>
+      ServerApi.signupUser(user)
+        .then(user => {
+          this.setState({user})
+          return user
+        }),
+
+    loginUser: (email, password) =>
+      ServerApi.loginUser(email, password)
+        .then(user => {
+          this.setState({user})
+          return user
+        }),
+
+    getUser: () =>
+      ServerApi.getUser()
+        .then(user => {
+          this.setState({user})
+          return user
+        }),
+
+    logoutUser: () =>
+      ServerApi.logoutUser()
+        .then(() => this.setState({user: null}))
   }
 
   componentDidMount () {
-    this.getAllProducts()
+    this.methods.getAllProducts()
+    this.methods.getUser()
   }
 
-  getAllProducts = () =>
-    ServerApi.getAllProducts()
-      .then(products =>
-        this.setState({
-          isLoaded: true,
-          products: products
-        }))
-
-    addProduct = (newProduct) =>
-      ServerApi.addProduct(newProduct, this.getAllProducts)
-        .then(this.getAllProducts)
-
-    deleteProduct = (product) =>
-      ServerApi.deleteProduct(product._id)
-        .then(this.getAllProducts)
-
-    updateProduct = (product) =>
-      ServerApi.updateProduct(product)
-        .then(this.getAllProducts)
-
-    render () {
-      const domainData = {
-        isLoaded: this.state.isLoaded,
-        products: this.state.products,
-        addProduct: this.addProduct,
-        deleteProduct: this.deleteProduct,
-        updateProduct: this.updateProduct
-      }
-
-      return this.state.isLoaded ? <Layout domainData={domainData} /> : null
+  render () {
+    const domainData = {
+      ...this.state,
+      ...this.methods,
+      loggedIn: this.state.user != null,
+      loggedOut: this.state.user == null
     }
+
+    return this.state.isLoaded ? <Layout domainData={domainData} /> : null
+  }
 }
 
 export default DomainDataProvider
