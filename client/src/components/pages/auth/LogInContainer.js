@@ -10,11 +10,11 @@ class LogInContainer extends Component {
     history: PropTypes.object.isRequired
   }
   state = {
-    username: '',
+    email: '',
     password: ''
   }
 
-  onUsernameChanged = (event) => this.setState({username: event.target.value})
+  onEmailChanged = (event) => this.setState({email: event.target.value})
 
   onPasswordChanged = (event) => this.setState({password: event.target.value})
 
@@ -22,15 +22,17 @@ class LogInContainer extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.domainData.logInForm(this.state)
+    this.props.domainData.loginUser(this.state.email, this.state.password)
+      .then(() => this.props.history.push('/products'))
   }
 
   render () {
     return <LogInForm
-      username={this.state.username}
-      onUsernameChanged={this.onUsernameChanged}
+      email={this.state.email}
+      onEmailChanged={this.onEmailChanged}
       password={this.state.password}
       onPasswordChanged={this.onPasswordChanged}
+      onSubmit={this.onSubmit}
     />
   }
 }

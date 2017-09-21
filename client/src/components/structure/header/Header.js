@@ -30,9 +30,10 @@ const Header = ({domainData}) =>
       <NavItemButton path='/about' >About</NavItemButton>
       <NavItemButton path='/products' >Products</NavItemButton>
 
-      <NavItemButton path='/' onClick={domainData.logoutUser}>Log Out</NavItemButton>
-      <NavItemButton path='/log-in'>Log In</NavItemButton>
-      <NavItemButton path='/sign-up'>Sign Up</NavItemButton>
+      {domainData.loggedIn ? <NavItemButton path='/' onClick={domainData.logoutUser}>Log Out</NavItemButton> : null}
+      {domainData.loggedOut ? <NavItemButton path='/auth/log-in'>Log In</NavItemButton> : null}
+      {domainData.loggedOut ? <NavItemButton path='/auth/sign-up'>Sign Up</NavItemButton> : null}
+      <NavItemButton path='/cart'>Cart</NavItemButton>
     </nav>
   </header>
 

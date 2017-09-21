@@ -27,6 +27,8 @@ class SignUpContainer extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
+    this.props.domainData.signupUser(this.state)
+      .then(() => this.props.history.push('/products'))
   }
 
   render () {
@@ -39,6 +41,7 @@ class SignUpContainer extends Component {
       onUsernameChanged={this.onUsernameChanged}
       password={this.state.password}
       onPasswordChanged={this.onPasswordChanged}
+      onSubmit={this.onSubmit}
     />
   }
 }

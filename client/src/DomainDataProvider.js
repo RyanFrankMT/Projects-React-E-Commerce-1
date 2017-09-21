@@ -6,7 +6,8 @@ class DomainDataProvider extends Component {
   state = {
     isLoaded: false,
     products: [],
-    user: null
+    user: null,
+    cart: {}
   }
 
   methods = {
@@ -59,7 +60,24 @@ class DomainDataProvider extends Component {
 
     logoutUser: () =>
       ServerApi.logoutUser()
-        .then(() => this.setState({user: null}))
+        .then(() => this.setState({user: null})),
+
+    addProductToCart: (itemId) => {
+      const {cart} = this.state
+      cart[itemId] = cart[itemId] || 0
+      cart[itemId] += 1
+      this.setState({cart})
+    },
+
+    setProductQuantityInCart: (itemId, quantity) => {
+      const {cart} = this.state
+      if (quantity > 0) {
+        cart[itemId] = quantity
+      } else {
+        delete cart[itemId]
+      }
+      this.setState({cart})
+    }
   }
 
   componentDidMount () {

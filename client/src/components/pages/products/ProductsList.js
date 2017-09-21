@@ -22,6 +22,7 @@ const ProductsList = ({domainData, history}) =>
             key={p._id}
             onDelete={() => domainData.deleteProduct(p._id)}
             onEdit={() => history.push(`/products/edit/${p._id}`)}
+            addProductToCart={() => domainData.addProductToCart(p._id)}
           />
         )
     }

@@ -12,8 +12,8 @@ const AuthenticationPage = (props) =>
   <div>
     <h1>Authentication Page</h1>
 
-    <Route path='/auth/log-in' render={() => <LogInContainer />} />
-    <Route path='/auth/sign-up' render={() => <SignUpContainer />} />
+    <Route path='/auth/log-in' render={() => <LogInContainer domainData={props.domainData} />} />
+    <Route path='/auth/sign-up' render={() => <SignUpContainer domainData={props.domainData} />} />
   </div>
 
 AuthenticationPage.propTypes = propTypes

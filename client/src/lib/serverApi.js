@@ -37,10 +37,10 @@ export const updateProduct = (product) => ajaxRequest(`/api/products/${product._
 
 export const deleteProduct = (productId) => ajaxRequest(`/api/products/${productId}`, 'DELETE')
 
-export const signupUser = (user) => ajaxRequest('signup', 'POST', user)
+export const signupUser = (user) => ajaxRequest('/api/signup', 'POST', user)
 
-export const loginUser = (email, password) => ajaxRequest('login', 'POST', {email, password})
+export const loginUser = (email, password) => ajaxRequest('/api/login', 'POST', {email, password})
 
-export const getUser = () => ajaxRequest('get_user', 'GET')
+export const getUser = () => ajaxRequest('/api/get_user', 'GET')
 
-export const logoutUser = () => ajaxRequest('logout', 'GET')
+export const logoutUser = () => ajaxRequest('/api/logout', 'GET')
