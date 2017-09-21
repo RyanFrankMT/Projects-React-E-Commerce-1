@@ -10,7 +10,7 @@ const propTypes = {
   onUsernameChanged: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   onPasswordChanged: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
 const SignUpForm = (props) =>

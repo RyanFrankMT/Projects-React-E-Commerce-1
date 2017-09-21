@@ -5,6 +5,10 @@ import * as AppPropTypes from '../../../lib/propTypes'
 import LogInForm from './LogInForm'
 
 class LogInContainer extends Component {
+  static propTypes = {
+    domainData: AppPropTypes.domainData,
+    history: PropTypes.object.isRequired
+  }
   state = {
     username: '',
     password: ''
@@ -13,6 +17,13 @@ class LogInContainer extends Component {
   onUsernameChanged = (event) => this.setState({username: event.target.value})
 
   onPasswordChanged = (event) => this.setState({password: event.target.value})
+
+  onCancel = () => this.props.history.push('/')
+
+  onSubmit = (event) => {
+    event.preventDefault()
+    this.props.domainData.logInForm(this.state)
+  }
 
   render () {
     return <LogInForm

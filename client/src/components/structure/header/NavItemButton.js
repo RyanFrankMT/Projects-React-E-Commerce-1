@@ -4,8 +4,9 @@ import {withRouter} from 'react-router-dom'
 
 const propTypes = {
   history: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  path: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  onClick: PropTypes.func
 }
 
 const styles = {
@@ -19,13 +20,15 @@ const styles = {
   }
 }
 
-const NavItemButton = (props) =>
-  <button
+const NavItemButton = (props) => {
+const onClick = props.onClick || (() => props.history.push(props.path))
+
+  return <button
     style={styles.button}
-    onClick={() => props.history.push(props.path)}
-  >
+    onClick={onClick}>
     {props.children}
   </button>
+}
 
 NavItemButton.propTypes = propTypes
 

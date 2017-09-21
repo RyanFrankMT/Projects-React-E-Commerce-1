@@ -7,7 +7,8 @@ const ajaxRequest = (url, method, body) => {
   const options = {
     body: JSON.stringify(body),
     headers: headers,
-    method: method
+    method: method,
+    credentials: 'include'
   }
   return fetch(url, options)
     .then(handleErrors)
