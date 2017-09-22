@@ -8,11 +8,18 @@ const propTypes = {
 }
 
 const CartCard = ({product, quantity, onSetQuantity}) => {
+  const onQuantityChanged = (event) => {
+    const newQuantity = parseInt(event.target.value, 10) || 0
+    if (newQuantity > 0 || window.confirm('Are you sure?')) {
+      onSetQuantity(newQuantity)
+    }
+  }
   return (
     <div>
-      <h1>{product}</h1>
+      <h1>{product.name}</h1>
       <h3>{quantity}</h3>
-      <input type='text' value={quantity} onChange={(event) => onSetQuantity(parseInt(event.target.value))} />
+      <input type='number' value={quantity} onChange={onQuantityChanged} />
+      <button onClick={onQuantityChanged}>Remove from Cart</button>
     </div>
   )
 }

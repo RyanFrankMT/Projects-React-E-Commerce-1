@@ -1,6 +1,4 @@
 import React from 'react'
-import NavItem from './NavItem'
-import {NavLink} from 'react-router-dom'
 import NavItemButton from './NavItemButton'
 import * as AppPropTypes from '../../../lib/propTypes'
 
@@ -33,10 +31,10 @@ const Header = ({domainData}) =>
       {domainData.loggedIn ? <NavItemButton path='/' onClick={domainData.logoutUser}>Log Out</NavItemButton> : null}
       {domainData.loggedOut ? <NavItemButton path='/auth/log-in'>Log In</NavItemButton> : null}
       {domainData.loggedOut ? <NavItemButton path='/auth/sign-up'>Sign Up</NavItemButton> : null}
-      <NavItemButton path='/cart'>Cart</NavItemButton>
+      <NavItemButton path='/cart'>Cart {domainData.totalProductsInCart}</NavItemButton>
     </nav>
   </header>
 
-Header.PropTypes = propTypes
+Header.propTypes = propTypes
 
 export default Header

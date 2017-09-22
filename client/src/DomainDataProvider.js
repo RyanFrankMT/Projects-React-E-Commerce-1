@@ -80,6 +80,16 @@ class DomainDataProvider extends Component {
     }
   }
 
+  getTotalProductsInCart = () => {
+    const {cart} = this.state
+    const values = Object.values(cart)
+    let total = 0
+    for (let i = 0; i < values.length; i++) {
+      total = total + values[i]
+    }
+    return total
+  }
+
   componentDidMount () {
     this.methods.getAllProducts()
     this.methods.getUser()
@@ -90,7 +100,9 @@ class DomainDataProvider extends Component {
       ...this.state,
       ...this.methods,
       loggedIn: this.state.user != null,
-      loggedOut: this.state.user == null
+      loggedOut: this.state.user == null,
+      totalProductsInCart: this.getTotalProductsInCart(),
+      isAdmin: this.state.user != null && this.state.user.local.isAdmin
     }
 
     return this.state.isLoaded ? <Layout domainData={domainData} /> : null

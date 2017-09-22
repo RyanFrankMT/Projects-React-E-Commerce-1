@@ -12,7 +12,7 @@ const propTypes = {
 
 const ProductsList = ({domainData, history}) =>
   <div>
-    <Link to='/products/add' primary>Add Product</Link>
+    {domainData.isAdmin ? <Link to='/products/add' primary>Add Product</Link> : null}
     {
       domainData.products.length === 0
         ? <h2>No Products Found</h2>
@@ -23,6 +23,7 @@ const ProductsList = ({domainData, history}) =>
             onDelete={() => domainData.deleteProduct(p._id)}
             onEdit={() => history.push(`/products/edit/${p._id}`)}
             addProductToCart={() => domainData.addProductToCart(p._id)}
+            isAdmin={domainData.isAdmin}
           />
         )
     }
